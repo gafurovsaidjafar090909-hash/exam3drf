@@ -74,7 +74,7 @@ class MyOrdersView(generics.ListAPIView):
     serializer_class = OrderSerializer
     permission_classes = [IsAuthenticated]
     def get_queryset(self):
-        return Order.objects.filter(user=self.request.user).order_by('-created_at')
+        return Order.objects.filter(user=self.request.user).order_by('created_at')
 
 
 
@@ -92,11 +92,12 @@ class CancelOrderView(APIView):
     def post(self, request, pk):
         order = get_object_or_404(Order,pk=pk,user=request.user)
         if order.status != Order.Status.PENDING:
-            return Response({'error': 'Заказ уже обрабатывается или отменён.'},status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error': 'zakaz dar sanjishay yo atminit shdagiay'},status=status.HTTP_400_BAD_REQUEST)
         order.status = Order.Status.CANCELLED
         order.save(update_fields=['status'])
         return Response(
-            {'message': 'Заказ успешно отменён.','order_id': order.id,'status': order.status},status=status.HTTP_200_OK)
+            {'message': 'zakaz otminit shud','order_id': order.id,'status': order.status},status=status.HTTP_200_OK)
+
 
 
 class AdminOrderStatusUpdateView(generics.UpdateAPIView):

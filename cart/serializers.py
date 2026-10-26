@@ -65,5 +65,5 @@ class OrderStatusSerializer(serializers.ModelSerializer):
 
     def validate_status(self, value):
         if value not in Order.Status.values:
-            raise serializers.ValidationError('Статус должен быть pending, processing или cancelled.')
+            raise serializers.ValidationError('status boyad pending,processing,cancelled bosha.')
         return value
